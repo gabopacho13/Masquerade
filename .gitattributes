@@ -1,0 +1,6 @@
+# Normaliza los finales de línea
+* text=auto
+*.cs text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+/Assets/HDRI/kloofendal_48d_partly_cloudy_puresky_4k.exr filter=lfs diff=lfs merge=lfs -text
