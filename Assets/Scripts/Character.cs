@@ -16,11 +16,16 @@ public class Character : Talker
     protected Animator animator;
     protected AudioSource voice;
     public List<AudioClip> voiceClips = new();
+    private bool canTalk = false;
 
     protected override void Awake()
     {
         base.Awake();
         interactInstruction = GameObject.FindGameObjectWithTag("InteractInstruction");
+        if (interactInstruction != null && interactInstruction.activeSelf)
+        {
+            interactInstruction.SetActive(false);
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,10 +37,6 @@ public class Character : Talker
         {
             Debug.LogError("InteractInstruction GameObject not found in the scene. Please ensure it exists.");
             return;
-        }
-        if (interactInstruction.activeSelf)
-        {
-            interactInstruction.SetActive(false); // Asegura que la instrucción de interacción esté oculta al inicio
         }
     }
 
@@ -64,6 +65,10 @@ public class Character : Talker
                 StartCoroutine(Talk(voiceClips, voice));
             }
         }
+        if (canTalk && Input.GetKeyDown(KeyCode.C))
+        {
+            StartTalking = true;
+        }
     }
 
     protected virtual void OnTriggerStay(Collider other)
@@ -71,20 +76,17 @@ public class Character : Talker
         float distancia = Vector3.Distance(this.transform.position, player.transform.position);
         Vector3 direccionHaciaNPC = (this.transform.position - player.transform.position).normalized;
         float angulo = Vector3.Angle(player.transform.forward, direccionHaciaNPC);
-
         if (other.CompareTag("Player"))
         {
             if (distancia <= 2.5f && angulo <= 45f && !IsTalking && !dialogs.Count.Equals(0))
             {
                 interactInstruction.SetActive(true); // Muestra la instrucción de interacción
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    StartTalking = true;
-                }
+                canTalk = true;
             }
             else
             {
                 interactInstruction.SetActive(false); // Oculta la instrucción de interacción
+                canTalk = false;
             }
         }
     }
@@ -94,6 +96,7 @@ public class Character : Talker
         if (other.CompareTag("Player"))
         {
             interactInstruction.SetActive(false); // Oculta la instrucción de interacción al salir del trigger
+            canTalk = false;
         }
     }
 }

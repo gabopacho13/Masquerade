@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,8 +19,10 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        map.SetActive(false);
-        miniMap.SetActive(true);
+        if (map != null)
+            map.SetActive(false);
+        if (miniMap != null)
+            miniMap.SetActive(true);
         if (instance == null)
         {
             instance = this;
@@ -66,6 +70,11 @@ public class GameManager : MonoBehaviour
             MaskCount++;
             Destroy(masks.FirstOrDefault(m => m.name == "InvisiblePathMask"));
         }
+        if (PlayerPrefs.GetInt("SewersMask") == 1)
+        {
+            MaskCount++;
+            Destroy(masks.FirstOrDefault(m => m.name == "SewersMask"));
+        }
         if (counter != null)
         {
             counter.text = MaskCount.ToString();
@@ -81,7 +90,7 @@ public class GameManager : MonoBehaviour
     {
         if (counter.text != MaskCount.ToString())
             counter.text = MaskCount.ToString();
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M) && map != null)
         {
             if (map.activeSelf)
             {
@@ -94,7 +103,7 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
             }
         }
-        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+        if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)) && miniMap != null)
         {
             if (miniMap.activeSelf)
             {

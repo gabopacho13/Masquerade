@@ -23,7 +23,7 @@ public class Talker : MonoBehaviour
     }
     protected GameObject textBox;
     protected CanvasGroup cg;
-    protected int currentDialogIndex = 0;
+    public int CurrentDialogIndex { get; protected set; } = 0;
 
     protected virtual void Awake()
     {
@@ -64,12 +64,11 @@ public class Talker : MonoBehaviour
                 {
                     int randomIndex = Random.Range(0, audioClips.Count);
                     AudioClip selectedAudioClip = audioClips[randomIndex];
-                    Debug.Log("Playing audio clip: " + selectedAudioClip.name);
                     audioSource.PlayOneShot(selectedAudioClip);
                 }
             }
             dialogObject.text = dialogs[_currentDialogListIndex].dialogs[i];
-            currentDialogIndex = i;
+            CurrentDialogIndex = i;
             yield return new WaitUntil(() => !(Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)));
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         }

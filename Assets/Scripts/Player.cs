@@ -61,7 +61,7 @@ public class Player : Talker
         // Aplicarla inmediatamente para evitar que el primer Update corrija mal
         mainCamera.transform.rotation = Quaternion.Euler(rotationV, rotationH, 0);
         speed = desiredSpeed;
-        if (GameManager.MaskCount == 0)
+        if (GameManager.MaskCount == 0 && SceneManager.GetActiveScene().name=="MainScene")
         {
             IsTalking = true;
             StartCoroutine(Talk());
