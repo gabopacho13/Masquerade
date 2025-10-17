@@ -207,7 +207,7 @@ public class Beast : Enemy, IMovable
         }
         if (IsTalking)
         {
-            if (currentDialogIndex == 4 && CameraManager.GetActiveCamera().name != "ManholeCamera")
+            if (CurrentDialogIndex == 4 && CameraManager.GetActiveCamera().name != "ManholeCamera")
             {
                 CameraManager.ChangeToCamera("ManholeCamera");
                 manholeLid.GetComponent<ManholeLid>().OpenUp = true;
