@@ -96,7 +96,7 @@ public class Enemy : Talker
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !canFollow)
         {
             canFollow = true;
         }

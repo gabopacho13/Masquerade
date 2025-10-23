@@ -20,7 +20,6 @@ public class StarManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Keep this instance across scenes
         }
         else
         {

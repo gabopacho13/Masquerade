@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MiniMapFollow : MonoBehaviour
 {
@@ -30,6 +31,10 @@ public class MiniMapFollow : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name != "MainScene")
+            return;
+        if (playerWorldTransform == null)
+            playerWorldTransform = GameObject.FindGameObjectWithTag("Player").transform;
         Vector3 playerPos = playerWorldTransform.position;
 
         float normalizedX = Mathf.InverseLerp(minWorld.x, maxWorld.x, playerPos.x);

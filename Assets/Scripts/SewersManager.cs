@@ -6,16 +6,19 @@ public class SewersManager : MonoBehaviour
     private Transform sewersMask;
     private Talker talkerComponent;
     private bool maskActivated = false;
+    [SerializeField]
+    private Transform guard;
 
     void Start()
     {
-        talkerComponent = GetComponent<Talker>();
-        sewersMask = transform.Find("SewersMask");
+        talkerComponent = guard.GetComponent<Talker>();
+        sewersMask = guard.transform.Find("SewersMask");
         sewersMask.gameObject.SetActive(false);
         if (PlayerPrefs.GetInt("SewersMask") == 1)
         {
-            //GameObject.Find("InteractInstruction").SetActive(false);
-            this.gameObject.SetActive(false);
+            guard.gameObject.SetActive(false);
+            if (GameObject.Find("InteractInstruction") != null)
+                GameObject.Find("InteractInstruction").SetActive(false);
         }
     }
 

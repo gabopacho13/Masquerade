@@ -6,24 +6,32 @@ public class Mask : MonoBehaviour
     public float floatAmplitude = 0.2f; // Amplitud del movimiento de flotación
     public float floatFrequency = 0.8f; // Frecuencia del movimiento de flotación
     private Vector3 initialPosition; // Posición inicial del objeto
+    private bool isFloating = false;
+    private bool isRotating = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         initialPosition = transform.position; // Guardar la posición inicial
-        StartCoroutine(FloatUpAndDown()); // Iniciar la flotación
-        StartCoroutine(Rotate());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isRotating)
+        {
+            StartCoroutine(Rotate());
+        }
+        if (!isFloating)
+        {
+            StartCoroutine(FloatUpAndDown());
+        }
     }
 
     private IEnumerator Rotate()
     {
-        while(true)
+        isRotating = true;
+        while (true)
         {
             transform.Rotate(Vector3.up, 90.0f * Time.deltaTime);
             yield return null; // Espera un frame antes de continuar
@@ -32,6 +40,7 @@ public class Mask : MonoBehaviour
 
     private IEnumerator FloatUpAndDown()
     {
+        isFloating = true;
         while (true)
         {
             float newY = initialPosition.y + Mathf.Sin(Time.time * floatFrequency) * floatAmplitude;

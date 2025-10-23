@@ -20,7 +20,6 @@ public class Villager : Character, IMovable
     public float distance = 100.0f;
     protected float currentDistance = 0.0f;
     protected AudioSource stepSound; 
-    protected int frameCounter = 0;
     private float stepTimer = 0f;
     public float stepInterval = 0.33f;
 

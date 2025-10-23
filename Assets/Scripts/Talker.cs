@@ -8,7 +8,6 @@ public class Talker : MonoBehaviour
 {
     public List<DialogList> dialogs = new();
     public List<int> dialogStops;
-    protected TextMeshProUGUI dialogObject;
     protected bool _isTalking = false;
     public bool IsTalking { get { return _isTalking; } set { _isTalking = value; } }
     protected GameObject player;
@@ -21,33 +20,7 @@ public class Talker : MonoBehaviour
             _currentDialogListIndex = value;
         }
     }
-    protected GameObject textBox;
-    protected CanvasGroup cg;
     public int CurrentDialogIndex { get; protected set; } = 0;
-
-    protected virtual void Awake()
-    {
-        textBox = GameObject.Find("TextBox");
-        if (textBox == null)
-        {
-            Debug.LogError("TextBox GameObject not found in the scene. Please ensure it exists.");
-            return;
-        }
-        dialogObject = textBox.GetComponentInChildren<TextMeshProUGUI>();
-        cg = textBox.GetComponent<CanvasGroup>();
-        if (cg.alpha != 0)
-        {
-            cg.alpha = 0; // Asegura que el CanvasGroup esté oculto al inicio
-            cg.interactable = false; // Desactiva la interacción con el CanvasGroup
-            cg.blocksRaycasts = false; // Desactiva el bloqueo de raycasts
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     protected virtual IEnumerator Talk(List<AudioClip> audioClips = null, AudioSource audioSource = null)
     {
@@ -55,7 +28,7 @@ public class Talker : MonoBehaviour
         {
             player.GetComponent<Player>().IsTalking = true; // Marca al jugador como hablando
         }
-        cg.alpha = 1; // Muestra el CanvasGroup
+        UIManager.Cg.alpha = 1; // Muestra el CanvasGroup
         for (int i = 0; i < dialogs[_currentDialogListIndex].dialogs.Count; i++)
         {
             if (audioSource != null)
@@ -67,7 +40,7 @@ public class Talker : MonoBehaviour
                     audioSource.PlayOneShot(selectedAudioClip);
                 }
             }
-            dialogObject.text = dialogs[_currentDialogListIndex].dialogs[i];
+            UIManager.DialogObject.text = dialogs[_currentDialogListIndex].dialogs[i];
             CurrentDialogIndex = i;
             yield return new WaitUntil(() => !(Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)));
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
@@ -81,7 +54,7 @@ public class Talker : MonoBehaviour
         {
             player.GetComponent<Player>().IsTalking = false; // Marca al jugador como no hablando
         }
-        cg.alpha = 0; // Hide the CanvasGroup
+        UIManager.Cg.alpha = 0; // Hide the CanvasGroup
     }
 
 }

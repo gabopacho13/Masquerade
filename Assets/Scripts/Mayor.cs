@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public class Mayor : Character
 {
-
-    public GameObject counter;
     public List<Material> materials;
     public Renderer face;
     private bool finishedCutscene = true;
@@ -29,7 +27,7 @@ public class Mayor : Character
             StartTalking = true;
         }
 
-        if (counter.GetComponent<TextMeshProUGUI>().text == "5")
+        if (UIManager.Counter.GetComponent<TextMeshProUGUI>().text == "7")
         {
             CurrentDialogListIndex = 5;
         }
@@ -39,21 +37,21 @@ public class Mayor : Character
             if (CurrentDialogListIndex == 0)
             {
                 finishedCutscene = false;
-                if (dialogObject.text == dialogs[0].dialogs[2])
+                if (UIManager.DialogObject.text == dialogs[0].dialogs[2])
                 {
                     if (CameraManager.GetActiveCamera().name != "IntroMaskCamera" && GameObject.Find("ObstacleMask") != null)
                     {
                         CameraManager.ChangeToCamera("IntroMaskCamera");
                     }
                 }
-                else if (dialogObject.text == dialogs[0].dialogs[3])
+                else if (UIManager.DialogObject.text == dialogs[0].dialogs[3])
                 {
                     if (CameraManager.GetActiveCamera().name != "IntroBeastCamera")
                     {
                         CameraManager.ChangeToCamera("IntroBeastCamera");
                     }
                 }
-                else if (dialogObject.text == dialogs[0].dialogs[6])
+                else if (UIManager.DialogObject.text == dialogs[0].dialogs[6])
                 {
                     if (CameraManager.GetActiveCamera().name != "IntroVillagerCamera")
                     {
@@ -68,19 +66,19 @@ public class Mayor : Character
                     }
                 }
             }
-            if (dialogObject.text == dialogs[0].dialogs[1] || dialogObject.text == dialogs[0].dialogs[2])
+            if (UIManager.DialogObject.text == dialogs[0].dialogs[1] || UIManager.DialogObject.text == dialogs[0].dialogs[2])
             {
                 face.material = materials[1];
             }
-            else if (dialogObject.text == dialogs[0].dialogs[3] || dialogs[3].dialogs.Contains(dialogObject.text))
+            else if (UIManager.DialogObject.text == dialogs[0].dialogs[3] || dialogs[3].dialogs.Contains(UIManager.DialogObject.text))
             {
                 face.material = materials[2];
             }
-            else if (dialogObject.text == dialogs[0].dialogs[4])
+            else if (UIManager.DialogObject.text == dialogs[0].dialogs[4])
             {
                 face.material = materials[3];
             }
-            else if (dialogObject.text == dialogs[0].dialogs[5] || dialogObject.text == dialogs[0].dialogs[6])
+            else if (UIManager.DialogObject.text == dialogs[0].dialogs[5] || UIManager.DialogObject.text == dialogs[0].dialogs[6])
             {
                 face.material = materials[4];
             }

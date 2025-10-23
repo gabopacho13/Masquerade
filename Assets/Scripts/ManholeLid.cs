@@ -5,7 +5,7 @@ public class ManholeLid : MonoBehaviour
 
     public bool OpenUp { get; set; } = false;
     private Animator animator;
-    private bool isOpen = false;
+    public bool IsOpen { get; private set; } = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,10 +21,10 @@ public class ManholeLid : MonoBehaviour
 
     public void LateUpdate()
     {
-        if (OpenUp && !isOpen)
+        if (OpenUp && !IsOpen)
         {
             animator.SetTrigger("openUp");
-            isOpen = true;
+            IsOpen = true;
         }
     }
 }

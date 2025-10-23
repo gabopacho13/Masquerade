@@ -16,8 +16,10 @@ public class ForestManager : MonoBehaviour
     public float newExposure = 0.45f;
     public float newTemperature = 20000f;
     public float newIntensityRatio = 0.23f;
+    private GameObject evilManager;
     private static AudioSource dramaticSound;
     private static AudioSource forestScream;
+    public static Transform respawnPoint;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +32,8 @@ public class ForestManager : MonoBehaviour
         }
         forestScream = transform.Find("ForestScream").GetComponent<AudioSource>();
         dramaticSound = transform.Find("DramaticSound").GetComponent<AudioSource>();
+        respawnPoint = transform.Find("RespawnPoint").transform;
+        evilManager = transform.Find("EvilManager").gameObject;
     }
 
     // Update is called once per frame
@@ -38,6 +42,14 @@ public class ForestManager : MonoBehaviour
         if (forestMask == null)
         {
             darkBeasts.SetActive(false);
+        }
+        if (PlayerPrefs.GetInt("SewersMask") == 1 && PlayerPrefs.GetInt("CellDoorOpened", 0) != 1 && !evilManager.activeSelf)
+        {
+            evilManager.SetActive(true);
+        }
+        else if ((PlayerPrefs.GetInt("SewersMask") != 1 || PlayerPrefs.GetInt("CellDoorOpened", 0) == 1) && evilManager.activeSelf)
+        {
+            evilManager.SetActive(false);
         }
     }
 
@@ -62,6 +74,10 @@ public class ForestManager : MonoBehaviour
             StartCoroutine(ChangeExposure(initialExposure, 1f));
             StartCoroutine(ChangeTemperature(initialTemperature, 1f));
             StartCoroutine(ChangeIntensity(1f, 1f));
+            if (EvilManager.AreEvilVillagersActive)
+            {
+                EvilManager.RestartVillagers();
+            }
         }
     }
 

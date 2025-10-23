@@ -12,32 +12,16 @@ public class Character : Talker
     
     public bool StartTalking { get; set; } = false;
     protected bool isOnTheGround = false; // Variable para verificar si el villager está en el suelo
-    protected GameObject interactInstruction;
     protected Animator animator;
     protected AudioSource voice;
     public List<AudioClip> voiceClips = new();
     private bool canTalk = false;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        interactInstruction = GameObject.FindGameObjectWithTag("InteractInstruction");
-        if (interactInstruction != null && interactInstruction.activeSelf)
-        {
-            interactInstruction.SetActive(false);
-        }
-    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
-        if (interactInstruction == null)
-        {
-            Debug.LogError("InteractInstruction GameObject not found in the scene. Please ensure it exists.");
-            return;
-        }
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -80,12 +64,12 @@ public class Character : Talker
         {
             if (distancia <= 2.5f && angulo <= 45f && !IsTalking && !dialogs.Count.Equals(0))
             {
-                interactInstruction.SetActive(true); // Muestra la instrucción de interacción
+                UIManager.InteractInstruction.SetActive(true); // Muestra la instrucción de interacción
                 canTalk = true;
             }
             else
             {
-                interactInstruction.SetActive(false); // Oculta la instrucción de interacción
+                UIManager.InteractInstruction.SetActive(false); // Oculta la instrucción de interacción
                 canTalk = false;
             }
         }
@@ -95,7 +79,7 @@ public class Character : Talker
     {
         if (other.CompareTag("Player"))
         {
-            interactInstruction.SetActive(false); // Oculta la instrucción de interacción al salir del trigger
+            UIManager.InteractInstruction.SetActive(false); // Oculta la instrucción de interacción al salir del trigger
             canTalk = false;
         }
     }

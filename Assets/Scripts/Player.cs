@@ -17,8 +17,6 @@ public class Player : Talker
     public int maxHealth, minHealth;
     public int Health { get { return _health; } private set { _health = value; } }
     private int _health;
-    private bool wasDamaged = false;
-    private bool isDead = false;
     public bool GameOn { get; private set; } = false;
     public GameObject target;
     //public float t;
@@ -26,29 +24,19 @@ public class Player : Talker
     private bool jumping = false;
     private bool isGrounded = false;
     private bool isInvulnerable = false; // Indica si el jugador es invulnerable
-    private Stack<GameObject> hearts = new();
-    private GameObject gameOver;
     private Vector3 respawnPosition;
     private AudioSource stepSound;
     private AudioSource punchSound;
     private float stepTimer = 0f;
     public float stepIntervalWalking = 0.66f;
     public float stepIntervalRunning = 0.4f;
+    private bool keyStolen = false;
+    public bool StartTalking { get; set; } = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Transform heartGroup = GameObject.Find("Hearts").transform;
-        for (int i = 0; i < heartGroup.childCount; i++)
-        {
-            hearts.Push(heartGroup.GetChild(i).gameObject);
-        }
-        gameOver = GameObject.Find("GameOver");
-        if (gameOver != null)
-        {
-            gameOver.SetActive(false); // Asegura que el GameOver esté oculto al inicio
-        }
-        Health = maxHealth;
+        Health = UIManager.Hearts.Count;
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         // Posicionar la cámara en el target (modo primera persona)
@@ -63,8 +51,7 @@ public class Player : Talker
         speed = desiredSpeed;
         if (GameManager.MaskCount == 0 && SceneManager.GetActiveScene().name=="MainScene")
         {
-            IsTalking = true;
-            StartCoroutine(Talk());
+            StartTalking = true;
         }
         stepSound = transform.Find("StepSound").GetComponent<AudioSource>();
         punchSound = transform.Find("PunchSound").GetComponent<AudioSource>();
@@ -110,6 +97,18 @@ public class Player : Talker
             {
                 jumping = true;
             }
+            if (keyStolen)
+            {
+                keyStolen = false;
+                CurrentDialogListIndex = 2;
+                StartTalking = true;
+            }
+        }
+        if (StartTalking)
+        {
+            IsTalking = true;
+            StartTalking = false;
+            StartCoroutine(Talk());
         }
     }
 
@@ -117,10 +116,9 @@ public class Player : Talker
     {
         punchSound.PlayOneShot(punchSound.clip);
         Health -= 1;
-        if (hearts.Count > 0)
+        if (Health >= 0)
         {
-            GameObject heart = hearts.Pop();
-            heart.SetActive(false);
+            UIManager.LoseHeart();
         }
         else
         {
@@ -129,15 +127,13 @@ public class Player : Talker
         if (Health <= minHealth)
         {
             Health = minHealth;
-            gameOver.SetActive(true);
+            UIManager.GameOver.SetActive(true);
             this.gameObject.SetActive(false);
-            isDead = true;
             Time.timeScale = 0;
         }
         else
         {
             Debug.Log("Invulnerable for 2 seconds");
-            wasDamaged = false;
             if (!isInvulnerable)
             {
                 StartCoroutine(InvulnerabilityCoroutine());
@@ -236,9 +232,11 @@ public class Player : Talker
                 {
                     ForestManager.PlayScream();
                     CurrentDialogListIndex = 1;
-                    IsTalking = true;
-                    StartCoroutine(Talk());
+                    StartTalking = true;
                 }
+                break;
+            case "Key":
+                PlayerPrefs.SetInt("HasKey", 1);
                 break;
             default:
                 break;
@@ -290,6 +288,20 @@ public class Player : Talker
         if (collision.gameObject.CompareTag("Water"))
         {
             transform.position = respawnPosition;
+        }
+        if (collision.gameObject.CompareTag("EvilVillager"))
+        {
+            if (!isInvulnerable)
+            {
+                reduceHealth();
+            }
+            if (PlayerPrefs.GetInt("HasKey") == 1)
+            {
+                PlayerPrefs.SetInt("HasKey", 0);
+                keyStolen = true;
+
+            }
+            transform.position = ForestManager.respawnPoint.position;
         }
     }
 

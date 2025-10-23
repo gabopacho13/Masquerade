@@ -59,6 +59,11 @@ public class Beast : Enemy, IMovable
         float distanceToPlayer = Vector3.Distance(this.transform.position, player.transform.position);
         Vector3 directionTowardsEnemy = (this.transform.position - player.transform.position).normalized;
         float anglePlayerEnemy = Vector3.Angle(player.transform.forward, directionTowardsEnemy);
+        if (distanceToPlayer <= GetComponent<SphereCollider>().radius/2)
+        {
+            canFollow = true;
+            isFollowing = true;
+        }
         if (isDead && !hasTalked)
         {
             canFollow = false;
@@ -121,24 +126,27 @@ public class Beast : Enemy, IMovable
         {
             if (!isInvulnerable)
             {
-                health--;
-                if (health <= 0)
+                if (!isDead)
                 {
-                    isDead = true;
-                    isFollowing = false;
-                    isMoving = false;
-                    StopAllCoroutines();
-                }
-                else
-                {
-                    currentState = BeastState.hurt;
-                    touchedPlayer = true;
-                    StopAllCoroutines();
-                    isRotating = false;
-                    isMoving = false;
-                    isInvulnerable = true;
-                    invulnerableTime = 0f;
-                    flashTimer = 0f;
+                    health--;
+                    if (health <= 0)
+                    {
+                        isDead = true;
+                        isFollowing = false;
+                        isMoving = false;
+                        StopAllCoroutines();
+                    }
+                    else
+                    {
+                        currentState = BeastState.hurt;
+                        touchedPlayer = true;
+                        StopAllCoroutines();
+                        isRotating = false;
+                        isMoving = false;
+                        isInvulnerable = true;
+                        invulnerableTime = 0f;
+                        flashTimer = 0f;
+                    }
                 }
             }
         }
@@ -218,7 +226,7 @@ public class Beast : Enemy, IMovable
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (isMoving && !isRotating && !isDead)
+        if (isMoving && !isRotating && !isDead && !isFollowing)
         {
             Move();
         }
@@ -241,7 +249,7 @@ public class Beast : Enemy, IMovable
             }
             strikeExitTimer = 0f;
         }
-        if (currentState == BeastState.strike)
+        else if (currentState == BeastState.strike)
         {
             strikeExitTimer += Time.deltaTime;
             if (strikeExitTimer >= strikeExitTime)
@@ -295,7 +303,10 @@ public class Beast : Enemy, IMovable
     protected override void OnTriggerExit(Collider other)
     {
         base.OnTriggerExit(other);
-        StartCoroutine(ReturnToOrigin());
+        if (other.CompareTag("Player"))
+        {
+            StartCoroutine(ReturnToOrigin());
+        }
     }
 
     private IEnumerator ReturnToOrigin()

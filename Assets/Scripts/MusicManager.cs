@@ -1,32 +1,40 @@
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
+using System.Collections.Generic;
+using System.Linq;
 
 public class MusicManager : MonoBehaviour
 {
 
     private static MusicManager instance;
-    private AudioSource[] audioSources;
+    private List<AudioSource> audioSources;
+    private List<float> maxVol = new();
     private static AudioMixer musicMixer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-        audioSources = transform.GetComponentsInChildren<AudioSource>();
-        for (int i = 0; i < audioSources.Length; i++)
+        audioSources = transform.GetComponentsInChildren<AudioSource>().ToList();
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        for (int i = 0; i < audioSources.Count; i++)
         {
+            maxVol.Add(audioSources[i].volume);
             if (i == 0)
             {
-                audioSources[i].volume = 1f;
+                audioSources[i].volume = maxVol[i];
                 audioSources[i].Play();
                 musicMixer = audioSources[i].outputAudioMixerGroup.audioMixer;
             }
@@ -48,6 +56,7 @@ public class MusicManager : MonoBehaviour
     {
         AudioSource currentMusic = null;
         AudioSource newMusic = null;
+        float newMaxVol = 1f;
         instance.StopAllCoroutines();
         foreach (var source in instance.audioSources)
         {
@@ -58,6 +67,7 @@ public class MusicManager : MonoBehaviour
             if (source.clip.name == musicName)
             {
                 newMusic = source;
+                newMaxVol = instance.maxVol[instance.audioSources.IndexOf(source)];
             }
             if (currentMusic != null && newMusic != null)
             {
@@ -76,11 +86,11 @@ public class MusicManager : MonoBehaviour
         }
         else
         {
-            instance.StartCoroutine(instance.CrossfadeMusic(currentMusic, newMusic, 2f));
+            instance.StartCoroutine(instance.CrossfadeMusic(currentMusic, newMusic, 2f, newMaxVol));
         }
     }
 
-    private IEnumerator CrossfadeMusic(AudioSource from, AudioSource to, float duration)
+    private IEnumerator CrossfadeMusic(AudioSource from, AudioSource to, float duration, float newMaxVol)
     {
         float time = 0f;
         float fromVolume = from.volume;
@@ -91,16 +101,23 @@ public class MusicManager : MonoBehaviour
             time += Time.deltaTime;
             float t = time / duration;
             from.volume = Mathf.Lerp(fromVolume, 0f, t);
-            to.volume = Mathf.Lerp(toVolume, 1f, t);
+            to.volume = Mathf.Lerp(toVolume, newMaxVol, t);
             yield return null;
         }
         from.Stop();
-        to.volume = 1f;
+        to.volume = newMaxVol;
     }
 
-    private static AudioSource[] GetCurrentMusic()
+    private static List<AudioSource> GetCurrentMusic()
     {
-        AudioSource[] playingSources = System.Array.FindAll(instance.audioSources, source => source.isPlaying);
+        List<AudioSource> playingSources = new();
+        foreach (var source in instance.audioSources)
+        {
+            if (source.isPlaying)
+            {
+                playingSources.Add(source);
+            }
+        }
         return instance.audioSources;
     }
 
