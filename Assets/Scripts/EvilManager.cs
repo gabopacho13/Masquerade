@@ -24,7 +24,7 @@ public class EvilManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerPrefs.GetInt("HasKey") == 1)
+        if (Buffer.HasKey)
         {
             key.SetActive(false);
         }

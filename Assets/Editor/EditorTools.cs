@@ -55,11 +55,21 @@ public class EditorTools : Editor
 public class PropSpawnerWindow : EditorWindow
 {
     private GameObject prefabToSpawn;
-    private bool lookAtCenter = false;
     private int count = 5;
     private float spacing = 2f;
+
     private enum Pattern { Line, Circle }
     private Pattern pattern = Pattern.Line;
+
+    private enum Orientation
+    {
+        None,
+        LookAtCenter,
+        FaceOutward,
+        TangentCW,
+        TangentCCW
+    }
+    private Orientation orientation = Orientation.None;
 
     [MenuItem("Tools/Prop Spawner")]
     [MenuItem("Window/Prop Spawner")]
@@ -76,7 +86,7 @@ public class PropSpawnerWindow : EditorWindow
         count = EditorGUILayout.IntSlider("Quantity", count, 1, 100);
         spacing = EditorGUILayout.FloatField("Spacing / Radius", spacing);
         pattern = (Pattern)EditorGUILayout.EnumPopup("Pattern", pattern);
-        lookAtCenter = EditorGUILayout.Toggle("Look at Center", lookAtCenter);
+        orientation = (Orientation)EditorGUILayout.EnumPopup("Orientation", orientation);
 
         if (GUILayout.Button("Spawn"))
         {
@@ -101,74 +111,119 @@ public class PropSpawnerWindow : EditorWindow
         Transform parent = Selection.activeTransform;
         Vector3 spawnCenter = parent.position;
 
-        // Calcular centro visual (Bounds de los hijos con Renderer)
+        // Centro visual a partir de bounds de los hijos
         Renderer[] childRenderers = parent.GetComponentsInChildren<Renderer>();
         if (childRenderers.Length > 0)
         {
             Bounds combinedBounds = childRenderers[0].bounds;
             for (int i = 1; i < childRenderers.Length; i++)
-            {
                 combinedBounds.Encapsulate(childRenderers[i].bounds);
-            }
             spawnCenter = combinedBounds.center;
         }
 
-        // Crear contenedor de props dentro del objeto seleccionado
+        // Contenedor de props
         string groupName = GameObjectUtility.GetUniqueNameForSibling(parent, "Spawned Props");
         GameObject group = new GameObject(groupName);
         group.transform.SetParent(parent);
         group.transform.localPosition = Vector3.zero;
         Undo.RegisterCreatedObjectUndo(group, "Create Prop Group");
 
-        // Instanciar props dentro del grupo
         for (int i = 0; i < count; i++)
         {
             Vector3 positionOffset = Vector3.zero;
+            float angle = 0f;
 
             if (pattern == Pattern.Line)
             {
-                positionOffset = new Vector3(i * spacing, 0, 0);
+                positionOffset = new Vector3(i * spacing, 0f, 0f);
             }
-            else if (pattern == Pattern.Circle)
+            else
             {
-                float angle = i * Mathf.PI * 2f / count;
-                positionOffset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * spacing;
+                angle = i * Mathf.PI * 2f / count;
+                positionOffset = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * spacing; // spacing = radio
             }
 
-            // Instanciar el prefab y posicionarlo
+            // Instancia
             GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefabToSpawn);
             string baseName = prefabToSpawn.name;
             string uniqueName = GameObjectUtility.GetUniqueNameForSibling(group.transform, baseName);
             instance.name = uniqueName;
             instance.transform.SetParent(group.transform, false);
 
-            // Posición inicial en world space
+            // Posición
             Vector3 spawnPosition = spawnCenter + positionOffset;
             instance.transform.position = spawnPosition;
 
-            // Orientación opcional hacia el centro
-            if (lookAtCenter)
+            Vector3 forward = instance.transform.forward;
+            bool setRotation = false;
+
+            if (orientation != Orientation.None)
             {
-                Vector3 direction = spawnCenter - instance.transform.position;
-                if (direction != Vector3.zero)
+                if (pattern == Pattern.Circle)
                 {
-                    instance.transform.rotation = Quaternion.LookRotation(direction);
+                    // Vectores útiles
+                    Vector3 radialIn = (spawnCenter - spawnPosition).normalized; // hacia el centro
+                    Vector3 radialOut = -radialIn;                                 // hacia afuera
+                    // Tangentes unitarias en el plano XZ:
+                    // CCW: derivada de (cos, sin) -> (-sin, cos)
+                    Vector3 tangentCCW = new Vector3(-Mathf.Sin(angle), 0f, Mathf.Cos(angle)).normalized;
+                    // CW: opuesto
+                    Vector3 tangentCW = new Vector3(Mathf.Sin(angle), 0f, -Mathf.Cos(angle)).normalized;
+
+                    switch (orientation)
+                    {
+                        case Orientation.LookAtCenter:
+                            forward = radialIn;
+                            setRotation = true;
+                            break;
+                        case Orientation.FaceOutward:
+                            forward = radialOut;
+                            setRotation = true;
+                            break;
+                        case Orientation.TangentCW:
+                            forward = tangentCW;
+                            setRotation = true;
+                            break;
+                        case Orientation.TangentCCW:
+                            forward = tangentCCW;
+                            setRotation = true;
+                            break;
+                    }
+                }
+                else 
+                {
+                    switch (orientation)
+                    {
+                        case Orientation.LookAtCenter:
+                        case Orientation.FaceOutward:
+                            break;
+                        case Orientation.TangentCW:
+                            forward = Vector3.left;
+                            setRotation = true;
+                            break;
+                        case Orientation.TangentCCW:
+                            forward = Vector3.right;
+                            setRotation = true;
+                            break;
+                    }
                 }
             }
 
-            // Obtener bounds en world space
+            if (setRotation && forward.sqrMagnitude > 0.0001f)
+            {
+                instance.transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+            }
+
             Renderer r = instance.GetComponentInChildren<Renderer>();
             if (r != null)
             {
                 Bounds b = r.bounds;
                 float bottomY = b.min.y;
-                float offsetY = bottomY;
-                instance.transform.position -= new Vector3(0, offsetY, 0);
+                instance.transform.position -= new Vector3(0f, bottomY, 0f);
             }
 
             Undo.RegisterCreatedObjectUndo(instance, "Spawned Prop");
         }
     }
-
 }
 

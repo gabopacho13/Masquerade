@@ -7,12 +7,13 @@ public class BeastManager : MonoBehaviour
 
     private static BeastManager instance;
     public GameObject maskPrefab;
-    private static List<GameObject> beasts = new();
+    private static List<GameObject> beasts;
     private static AudioSource dramaticSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        beasts = new();
         if (instance == null)
         {
             instance = this;

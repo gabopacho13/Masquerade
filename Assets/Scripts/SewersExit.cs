@@ -15,7 +15,7 @@ public class SewersExit : MonoBehaviour
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.C))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+            SceneDirector.LoadScene("MainScene");
         }
     }
 

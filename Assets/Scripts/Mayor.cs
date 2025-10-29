@@ -8,6 +8,12 @@ public class Mayor : Character
     public List<Material> materials;
     public Renderer face;
     private bool finishedCutscene = true;
+    [SerializeField]
+    private GameObject options;
+    [SerializeField]
+    private GameObject ExtraMaskOptions;
+    public bool optionsShown = false;
+    private bool HasJumpedToFinalDialog = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
@@ -26,10 +32,11 @@ public class Mayor : Character
             CurrentDialogListIndex = 2;
             StartTalking = true;
         }
-
-        if (UIManager.Counter.GetComponent<TextMeshProUGUI>().text == "7")
+        int.TryParse(UIManager.Counter.GetComponent<TextMeshProUGUI>().text, out int counterValue);
+        if ( counterValue >= 7 && !HasJumpedToFinalDialog)
         {
             CurrentDialogListIndex = 5;
+            HasJumpedToFinalDialog = true;
         }
 
         if (IsTalking)
@@ -86,6 +93,12 @@ public class Mayor : Character
             {
                 face.material = materials[0];
             }
+            if (UIManager.DialogObject.text == dialogs[5].dialogs[2] && !optionsShown)
+            {
+                GameManager.SetWaitingForInput(true);
+                options.SetActive(true);
+                optionsShown = true;
+            }
         }
         else
         {
@@ -95,6 +108,11 @@ public class Mayor : Character
                 CameraManager.ChangeToCamera("Main Camera");
                 finishedCutscene = true;
             }
+        }
+        if (!options.activeSelf && optionsShown)
+        {
+            GameManager.SetWaitingForInput(false);
+            optionsShown = false;
         }
     }
 }

@@ -43,7 +43,8 @@ public class Talker : MonoBehaviour
             UIManager.DialogObject.text = dialogs[_currentDialogListIndex].dialogs[i];
             CurrentDialogIndex = i;
             yield return new WaitUntil(() => !(Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)));
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+            yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)));
+            yield return new WaitUntil(() => !GameManager.WaitingForInput);
         }
         if (!dialogStops.Contains(_currentDialogListIndex) && _currentDialogListIndex + 1 < dialogs.Count)
         {
@@ -55,6 +56,7 @@ public class Talker : MonoBehaviour
             player.GetComponent<Player>().IsTalking = false; // Marca al jugador como no hablando
         }
         UIManager.Cg.alpha = 0; // Hide the CanvasGroup
+        UIManager.DialogObject.text = "";
     }
 
 }

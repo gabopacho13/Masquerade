@@ -303,8 +303,9 @@ public class Beast : Enemy, IMovable
     protected override void OnTriggerExit(Collider other)
     {
         base.OnTriggerExit(other);
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isDead)
         {
+            StopAllCoroutines();
             StartCoroutine(ReturnToOrigin());
         }
     }

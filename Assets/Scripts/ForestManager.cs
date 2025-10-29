@@ -43,11 +43,11 @@ public class ForestManager : MonoBehaviour
         {
             darkBeasts.SetActive(false);
         }
-        if (PlayerPrefs.GetInt("SewersMask") == 1 && PlayerPrefs.GetInt("CellDoorOpened", 0) != 1 && !evilManager.activeSelf)
+        if (Buffer.Masks.Find(m=>m.Name == "SewersMask").Collected && !Buffer.CellDoorOpened && !evilManager.activeSelf)
         {
             evilManager.SetActive(true);
         }
-        else if ((PlayerPrefs.GetInt("SewersMask") != 1 || PlayerPrefs.GetInt("CellDoorOpened", 0) == 1) && evilManager.activeSelf)
+        else if ((!Buffer.Masks.Find(m => m.Name == "SewersMask").Collected || Buffer.CellDoorOpened) && evilManager.activeSelf)
         {
             evilManager.SetActive(false);
         }

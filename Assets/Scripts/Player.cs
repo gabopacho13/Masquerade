@@ -1,12 +1,6 @@
 using UnityEngine;
-using JetBrains.Annotations;
-using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 using System.Collections;
-using TMPro;
-using System.Collections.Generic;
 
 public class Player : Talker
 {
@@ -17,7 +11,6 @@ public class Player : Talker
     public int maxHealth, minHealth;
     public int Health { get { return _health; } private set { _health = value; } }
     private int _health;
-    public bool GameOn { get; private set; } = false;
     public GameObject target;
     //public float t;
     public float jumpForce = 5.0f;
@@ -32,6 +25,17 @@ public class Player : Talker
     public float stepIntervalRunning = 0.4f;
     private bool keyStolen = false;
     public bool StartTalking { get; set; } = false;
+
+
+    void Awake()
+    {
+        if (Buffer.SpawnedFromSave)
+        {
+            Vector3 savedPosition = new Vector3(Buffer.PlayerPosX, Buffer.PlayerPosY, Buffer.PlayerPosZ);
+            transform.position = savedPosition;
+            Buffer.SpawnedFromSave = false;
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,7 +53,7 @@ public class Player : Talker
         // Aplicarla inmediatamente para evitar que el primer Update corrija mal
         mainCamera.transform.rotation = Quaternion.Euler(rotationV, rotationH, 0);
         speed = desiredSpeed;
-        if (GameManager.MaskCount == 0 && SceneManager.GetActiveScene().name=="MainScene")
+        if (GameManager.MaskCount == 0 && SceneManager.GetActiveScene().name=="MainScene" && !Buffer.SpawnedFromSave)
         {
             StartTalking = true;
         }
@@ -60,21 +64,11 @@ public class Player : Talker
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (GameManager.GameOn)
         {
-            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-            UnityEngine.Cursor.visible = false;
-            GameOn = true;
-            Time.timeScale = 1;
-        }
-        if (GameOn)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Health != UIManager.Hearts.Count)
             {
-                UnityEngine.Cursor.lockState = CursorLockMode.None;
-                UnityEngine.Cursor.visible = true;
-                GameOn = false;
-                Time.timeScale = 0;
+                Health = UIManager.Hearts.Count;
             }
             if (Time.timeScale != 0 && !_isTalking)
             {
@@ -116,6 +110,7 @@ public class Player : Talker
     {
         punchSound.PlayOneShot(punchSound.clip);
         Health -= 1;
+        Buffer.health = Health;
         if (Health >= 0)
         {
             UIManager.LoseHeart();
@@ -127,9 +122,8 @@ public class Player : Talker
         if (Health <= minHealth)
         {
             Health = minHealth;
-            UIManager.GameOver.SetActive(true);
+            UIManager.GameOverRoutine();
             this.gameObject.SetActive(false);
-            Time.timeScale = 0;
         }
         else
         {
@@ -160,7 +154,7 @@ public class Player : Talker
 
     private void FixedUpdate()
     {
-        if (GameOn)
+        if (GameManager.GameOn)
         {
             if (jumping)
             {
@@ -180,7 +174,7 @@ public class Player : Talker
         transform.position += Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime * transform.right;
         if (stepSound != null)
         {
-            if ((Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0) && isGrounded && GameOn)
+            if ((Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0) && isGrounded && GameManager.GameOn)
             {
                 stepTimer += Time.fixedDeltaTime;
                 float currentStepInterval = (speed > desiredSpeed) ? stepIntervalRunning : stepIntervalWalking;
@@ -225,7 +219,7 @@ public class Player : Talker
         {
             case "Mask":
                 GameManager.MaskCount++;
-                PlayerPrefs.SetInt(other.gameObject.name, 1);
+                Buffer.Masks[Buffer.Masks.FindIndex(m => m.Name == other.gameObject.name)].SetCollected(true);
                 string maskName = other.gameObject.name;
                 Destroy(other.gameObject);
                 if (maskName == "ForestMask")
@@ -234,9 +228,10 @@ public class Player : Talker
                     CurrentDialogListIndex = 1;
                     StartTalking = true;
                 }
+                Buffer.SaveGameSync();
                 break;
             case "Key":
-                PlayerPrefs.SetInt("HasKey", 1);
+                Buffer.HasKey = true;
                 break;
             default:
                 break;
@@ -295,9 +290,9 @@ public class Player : Talker
             {
                 reduceHealth();
             }
-            if (PlayerPrefs.GetInt("HasKey") == 1)
+            if (Buffer.HasKey)
             {
-                PlayerPrefs.SetInt("HasKey", 0);
+                Buffer.HasKey = false;
                 keyStolen = true;
 
             }

@@ -18,6 +18,8 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: fad249c5d53535d4188e4a4663700cfb
     name: MasterPitch
+  - guid: 3cfc5991afa92cf40aee13cf97c76af3
+    name: MusicVolume
   m_AudioMixerGroupViews:
   - guids:
     - 02068b53fc4529e448dbe06fa40bb086

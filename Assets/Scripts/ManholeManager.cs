@@ -17,7 +17,7 @@ public class ManholeManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C) && canEnter)
         {
-            SceneManager.LoadScene("Sewers");
+            SceneDirector.LoadScene("Sewers");
         }
     }
 

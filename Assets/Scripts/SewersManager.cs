@@ -14,7 +14,7 @@ public class SewersManager : MonoBehaviour
         talkerComponent = guard.GetComponent<Talker>();
         sewersMask = guard.transform.Find("SewersMask");
         sewersMask.gameObject.SetActive(false);
-        if (PlayerPrefs.GetInt("SewersMask") == 1)
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "SewersMask").Collected)
         {
             guard.gameObject.SetActive(false);
             if (GameObject.Find("InteractInstruction") != null)

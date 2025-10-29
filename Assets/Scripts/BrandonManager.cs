@@ -18,7 +18,7 @@ public class BrandonManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player.IsTalking && PlayerPrefs.GetInt("BodySeen", 0) == 1 && sadMusic.volume > 0f && !musicFading)
+        if (!player.IsTalking && Buffer.BodySeen && sadMusic.volume > 0f && !musicFading)
         {
             StopAllCoroutines();
             StartCoroutine(FadeSadMusic(false, 3f));
@@ -26,17 +26,18 @@ public class BrandonManager : MonoBehaviour
         }
         if (playerInRange && Input.GetKeyDown(KeyCode.C) && !player.IsTalking)
         {
-            if (PlayerPrefs.GetInt("BodySeen", 0) == 0)
+            if (!Buffer.BodySeen)
             {
                 player.CurrentDialogListIndex = 1;
                 StartCoroutine(FadeSadMusic(true, 3f, maxVol: 0.8f));
+                Buffer.BodySeen = true;
+                Buffer.SaveGameSync();
             }
             else
             {
                 player.CurrentDialogListIndex = 2;
             }
             player.StartTalking = true;
-            PlayerPrefs.SetInt("BodySeen", 1);
             UIManager.InteractInstruction.SetActive(false);
         }
     }

@@ -10,7 +10,7 @@ public class MusicManager : MonoBehaviour
 
     private static MusicManager instance;
     private List<AudioSource> audioSources;
-    private List<float> maxVol = new();
+    private List<float> maxVol;
     private static AudioMixer musicMixer;
 
     private void Awake()
@@ -24,6 +24,7 @@ public class MusicManager : MonoBehaviour
             Destroy(gameObject);
         }
         audioSources = transform.GetComponentsInChildren<AudioSource>().ToList();
+        maxVol = new List<float>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,12 +45,6 @@ public class MusicManager : MonoBehaviour
                 audioSources[i].Stop();
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public static void ChangeMusic(string musicName)

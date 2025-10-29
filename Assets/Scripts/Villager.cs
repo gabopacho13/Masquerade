@@ -80,7 +80,7 @@ public class Villager : Character, IMovable
         {
             stepSound.mute = false;
         }
-        if (currentState == VillagerState.Moving && player.GetComponent<Player>().GameOn)
+        if (currentState == VillagerState.Moving && GameManager.GameOn)
         {
             stepTimer += Time.deltaTime;
             if (stepTimer >= stepInterval)

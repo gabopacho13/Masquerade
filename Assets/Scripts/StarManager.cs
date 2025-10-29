@@ -7,7 +7,7 @@ public class StarManager : MonoBehaviour
     private GameObject starMask;
     public List<GameObject> buttonsInOrder;
     public GameObject TeleportPoint;
-    private static Queue<GameObject> buttonQueue = new();
+    private static Queue<GameObject> buttonQueue;
     private static bool pressedInOrder = true;
     private GameObject player;
     private static StarManager instance;
@@ -26,6 +26,7 @@ public class StarManager : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate instances
             return;
         }
+        buttonQueue = new Queue<GameObject>();
         starVillager = transform.Find("StarVillager").GetComponent<Villager>();
         starMask = transform.Find("StarMask").gameObject;   
         if (starVillager == null)

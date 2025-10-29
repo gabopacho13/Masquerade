@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -19,6 +18,10 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject spawnFromSewers;
+    public static bool GameOn { get; private set; } = false;
+    [SerializeField]
+    private GameObject PauseMenu;
+    public static bool WaitingForInput = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,13 +61,13 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("Player or spawnFromSewers GameObject not found.");
             }
         }
-        if (PlayerPrefs.GetInt("ForestMask") == 1)
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "ForestMask").Collected)
         {
             MaskCount++;
             if (SceneManager.GetActiveScene().name == "MainScene")
                 Destroy(masks.FirstOrDefault(m => m.name == "ForestMask"));
         }
-        if (PlayerPrefs.GetInt("FoxMask") == 1)
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "FoxMask").Collected)
         {
             MaskCount++;
             if (SceneManager.GetActiveScene().name == "MainScene")
@@ -73,7 +76,7 @@ public class GameManager : MonoBehaviour
                 GameObject.Find("Fox").GetComponent<FoxInteraction>().IsMoving = false;
             }
         }
-        if (PlayerPrefs.GetInt("BeastMask") == 1)
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "BeastMask").Collected)
         {
             MaskCount++;
             if (SceneManager.GetActiveScene().name == "MainScene")
@@ -82,7 +85,7 @@ public class GameManager : MonoBehaviour
                 manholeLid.OpenUp = true;
             }
         }
-        if (PlayerPrefs.GetInt("StarMask") == 1)
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "StarMask").Collected)
         {
             MaskCount++;
             if (SceneManager.GetActiveScene().name == "MainScene")
@@ -91,7 +94,7 @@ public class GameManager : MonoBehaviour
                 GameObject.Find("Star").transform.Find("Buttons").gameObject.SetActive(false);
             }
         }
-        if (PlayerPrefs.GetInt("ObstacleMask") == 1)
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "ObstacleMask").Collected)
         {
             MaskCount++;
             if (SceneManager.GetActiveScene().name == "MainScene")
@@ -102,18 +105,25 @@ public class GameManager : MonoBehaviour
             Destroy(obstacleBeast);
             }
         }
-        if (PlayerPrefs.GetInt("InvisiblePathMask") == 1)
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "InvisiblePathMask").Collected)
         {
             MaskCount++;
             if (SceneManager.GetActiveScene().name == "MainScene")
                 Destroy(masks.FirstOrDefault(m => m.name == "InvisiblePathMask"));
         }
-        if (PlayerPrefs.GetInt("SewersMask") == 1)
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "SecretMask").Collected)
+        {
+            MaskCount++;
+            if (SceneManager.GetActiveScene().name == "MainScene")
+                Destroy(masks.FirstOrDefault(m => m.name == "SecretMask"));
+        }
+        if (Buffer.Masks != null && Buffer.Masks.Find(m => m.Name == "SewersMask").Collected)
         {
             MaskCount++;
             if (SceneManager.GetActiveScene().name == "Sewers")
                 Destroy(masks.FirstOrDefault(m => m.name == "SewersMask"));
         }
+
         UIManager.Counter.text = MaskCount.ToString();
         if (UIManager.InteractInstruction.activeSelf)
             UIManager.InteractInstruction.SetActive(false);
@@ -122,6 +132,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name != "MainScene" && SceneManager.GetActiveScene().name != "Sewers")
+        {
+            Destroy(gameObject);
+        }
         if (UIManager.Counter.text != MaskCount.ToString())
             UIManager.Counter.text = MaskCount.ToString();
         if (Input.GetKeyDown(KeyCode.M) && map != null)
@@ -135,6 +149,60 @@ public class GameManager : MonoBehaviour
             {
                 map.SetActive(true);
                 Time.timeScale = 0;
+            }
+        }
+        if (UIManager.IsGameOver)
+        {
+            Time.timeScale = 0;
+        }
+        if (UIManager.IsGameOver && !Cursor.visible)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            GameOn = false;
+        }
+        if (Input.GetMouseButtonDown(0) && !UIManager.IsGameOver && !PauseMenu.activeSelf && !WaitingForInput)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            GameOn = true;
+            Time.timeScale = 1;
+        }
+        if (GameOn)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                GameOn = false;
+                Time.timeScale = 0;
+                PauseMenu.SetActive(true);
+            }
+        }
+    }
+
+    public void ContinueGame()
+    {
+        PauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        GameOn = true;
+        Time.timeScale = 1;
+    }
+
+    public static void SetWaitingForInput(bool newState)
+    {
+        WaitingForInput = newState;
+        if (Cursor.visible != newState)
+        {
+            Cursor.visible = newState;
+            if (newState)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
     }

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class CameraManager : MonoBehaviour
 {
-    private static List<Camera> cameras = new();
+    private static List<Camera> cameras;
     private LayerMask cameraLayerMask;
     private static readonly CameraManager instance;
 
@@ -17,6 +17,7 @@ public class CameraManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        cameras = new List<Camera>();
         cameraLayerMask = LayerMask.NameToLayer("Cameras");
         cameras = FindObjectsByType<GameObject>(FindObjectsSortMode.None)
             .Where(obj => obj.layer == cameraLayerMask)

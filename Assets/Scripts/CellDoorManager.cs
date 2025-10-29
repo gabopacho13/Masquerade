@@ -20,7 +20,7 @@ public class CellDoorManager : MonoBehaviour
     void Start()
     {
         doorAnimator = GetComponent<Animator>();
-        if (PlayerPrefs.GetInt("CellDoorOpened", 0) == 1)
+        if (Buffer.CellDoorOpened)
         {
             doorOpen = true;
         }
@@ -33,14 +33,15 @@ public class CellDoorManager : MonoBehaviour
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.C) && !player.IsTalking)
         {
-            if (PlayerPrefs.GetInt("HasKey", 0) == 1)
+            if (Buffer.HasKey)
             {
                 doorOpen = true;
-                PlayerPrefs.SetInt("CellDoorOpened", 1);
-                PlayerPrefs.SetInt("HasKey", 0);
+                Buffer.CellDoorOpened = true;
+                Buffer.HasKey = false;
                 doorSound.PlayOneShot(doorSound.clip);
                 UIManager.InteractInstruction.SetActive(false);
                 playerInRange = false;
+                Buffer.SaveGameSync();
             }
             else
             {
