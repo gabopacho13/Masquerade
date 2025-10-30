@@ -15,7 +15,7 @@ public class Character : Talker
     protected Animator animator;
     protected AudioSource voice;
     public List<AudioClip> voiceClips = new();
-    private bool canTalk = false;
+    protected bool canTalk = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()

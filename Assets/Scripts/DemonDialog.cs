@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class DemonDialog : MonoBehaviour
@@ -14,6 +15,10 @@ public class DemonDialog : MonoBehaviour
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        if (Buffer.Ending3Activated)
+        {
+            gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Me pregunto... si mi primo querrá venir el año que viene...";
+        }
     }
 
     public IEnumerator ShowDialog()
@@ -27,7 +32,7 @@ public class DemonDialog : MonoBehaviour
             yield return null;
         }
         canvasGroup.alpha = 1.0f;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         yield return StartCoroutine(HideDialog());
         HasBeenShown = true;
     }

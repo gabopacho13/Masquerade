@@ -137,4 +137,29 @@ public class MusicManager : MonoBehaviour
         }
         musicMixer.SetFloat("MasterPitch", newPitch);
     }
+
+    public static void FadeOut()
+    {
+        AudioSource currentMusic = GetCurrentMusic().FirstOrDefault();
+        if (currentMusic != null)
+        {
+            instance.StopAllCoroutines();
+            instance.StartCoroutine(instance.FadeOutMusic(currentMusic, 1.5f));
+        }
+    }
+
+    private IEnumerator FadeOutMusic(AudioSource from, float duration)
+    {
+        float time = 0f;
+        float fromVolume = from.volume;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+            from.volume = Mathf.Lerp(fromVolume, 0f, t);
+            yield return null;
+        }
+        from.Stop();
+        from.volume = fromVolume;
+    }
 }

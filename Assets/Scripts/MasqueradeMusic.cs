@@ -19,17 +19,23 @@ public class MasqueradeMusic : MonoBehaviour
 
     public IEnumerator ChangePitch()
     {
+        return ChangePitch(this.targetPitch);
+    }
+
+    public IEnumerator ChangePitch(float newTargetPitch)
+    {
         float elapsedTime = 0.0f;
-        float t = 0;
         float startingPitch = audioSource.pitch;
+
         while (elapsedTime < pitchChangeDuration)
         {
             elapsedTime += Time.deltaTime;
-            t = elapsedTime / pitchChangeDuration;
-            audioSource.pitch = Mathf.Lerp(startingPitch, targetPitch, t);
+            float t = elapsedTime / pitchChangeDuration;
+            audioSource.pitch = Mathf.Lerp(startingPitch, newTargetPitch, t);
             yield return null;
         }
-        audioSource.pitch = targetPitch;
+
+        audioSource.pitch = newTargetPitch;
     }
 
     private IEnumerator FadeInMusic()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +18,7 @@ public class UIManager : MonoBehaviour
     public static TextMeshProUGUI Counter { get; private set; }
     public static CanvasGroup GameOver { get; private set; }
     public static CanvasGroup Cg { get; private set; }
-    public static Stack<GameObject> Hearts { get; private set; } = new();
+    public static Stack<GameObject> Hearts { get; private set; }
     private static bool isFinalScene = false;
     public static bool IsGameOver { get; private set; } = false;
     private static float GameOverFadeDuration = 1.0f;
@@ -53,12 +54,14 @@ public class UIManager : MonoBehaviour
             Cg.interactable = false; // Desactiva la interacción con el CanvasGroup
             Cg.blocksRaycasts = false; // Desactiva el bloqueo de raycasts
         }
+        Hearts = new();
         foreach (Transform child in Canvas.Find("Hearts"))
         {
             Hearts.Push(child.gameObject);
         }
         int loadedHearts = Buffer.health;
-        for (int i = 0; i < Hearts.Count; i++)
+        int maxHearts = Hearts.Count;
+        for (int i = 0; i < maxHearts; i++)
         {
             if (i >= loadedHearts)
             {
@@ -74,17 +77,9 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "MainMenu")
+        if (SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Masquerade" || SceneManager.GetActiveScene().name == "BurnedVillage")
         {
             Destroy(gameObject);
-        }
-        if (SceneManager.GetActiveScene().name == "Masquerade" && !isFinalScene)
-        {
-            foreach(Transform child in Canvas)
-            {
-                child.gameObject.SetActive(false);
-            }
-            isFinalScene = true;
         }
         else
         {
@@ -106,6 +101,11 @@ public class UIManager : MonoBehaviour
                 {
                     MiniMap.SetActive(true);
                 }
+            }
+            int.TryParse(Counter.text, out int counterValue);
+            if (counterValue > Buffer.Masks.Count)
+            {
+                Counter.text = Buffer.Masks.Count.ToString();
             }
         }
     }
