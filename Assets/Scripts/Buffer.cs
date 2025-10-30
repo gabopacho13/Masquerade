@@ -17,6 +17,7 @@ public class Buffer : MonoBehaviour
     public static float PlayerPosX = 0f;
     public static float PlayerPosY = 0f;
     public static float PlayerPosZ = 0f;
+    public static bool Ending3Activated = false;
 
     public class Mask
     {

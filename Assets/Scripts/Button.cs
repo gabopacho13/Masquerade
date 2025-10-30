@@ -3,6 +3,9 @@ using UnityEngine;
 public class Button : MonoBehaviour
 {
 
+    [SerializeField]
+    private AudioSource pingSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,6 +23,10 @@ public class Button : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             StarManager.VerifyButton(this.gameObject);
+            if (pingSound != null)
+            {
+                pingSound.PlayOneShot(pingSound.clip);
+            }
             gameObject.SetActive(false);
         }
     }

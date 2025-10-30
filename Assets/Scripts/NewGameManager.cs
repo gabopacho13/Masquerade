@@ -14,7 +14,7 @@ public class NewGameManager : MonoBehaviour
         }
         else
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+            SceneDirector.LoadScene("MainScene");
         }
     }
 
@@ -22,7 +22,7 @@ public class NewGameManager : MonoBehaviour
     public void ConfirmNewGame()
     {
         PlayerPrefs.DeleteAll();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+        SceneDirector.LoadScene("MainScene");
     }
 
 }

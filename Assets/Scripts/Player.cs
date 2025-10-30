@@ -24,6 +24,8 @@ public class Player : Talker
     public float stepIntervalWalking = 0.66f;
     public float stepIntervalRunning = 0.4f;
     private bool keyStolen = false;
+    [SerializeField]
+    private AudioSource pingSound;
     public bool StartTalking { get; set; } = false;
 
 
@@ -33,7 +35,6 @@ public class Player : Talker
         {
             Vector3 savedPosition = new Vector3(Buffer.PlayerPosX, Buffer.PlayerPosY, Buffer.PlayerPosZ);
             transform.position = savedPosition;
-            Buffer.SpawnedFromSave = false;
         }
     }
 
@@ -59,6 +60,11 @@ public class Player : Talker
         }
         stepSound = transform.Find("StepSound").GetComponent<AudioSource>();
         punchSound = transform.Find("PunchSound").GetComponent<AudioSource>();
+        if (Buffer.SpawnedFromSave)
+        {
+            Buffer.SpawnedFromSave = false;
+        }
+        respawnPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -218,6 +224,10 @@ public class Player : Talker
         switch (other.gameObject.tag)
         {
             case "Mask":
+                if (Buffer.Masks.Find(match => match.Name == other.gameObject.name).Collected)
+                {
+                    break;
+                }
                 GameManager.MaskCount++;
                 Buffer.Masks[Buffer.Masks.FindIndex(m => m.Name == other.gameObject.name)].SetCollected(true);
                 string maskName = other.gameObject.name;
@@ -229,9 +239,11 @@ public class Player : Talker
                     StartTalking = true;
                 }
                 Buffer.SaveGameSync();
+                pingSound.PlayOneShot(pingSound.clip);
                 break;
             case "Key":
                 Buffer.HasKey = true;
+                pingSound.PlayOneShot(pingSound.clip);
                 break;
             default:
                 break;

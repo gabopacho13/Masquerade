@@ -206,4 +206,10 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public static void LoadMasqueradeWithParticipation(bool participate)
+    {
+        Buffer.Ending3Activated = participate;
+        SceneDirector.LoadScene("Masquerade");
+    }
 }

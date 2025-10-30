@@ -5,7 +5,9 @@ using UnityEngine;
 public class MasqueradeCamera : MonoBehaviour
 {
     [SerializeField]
-    private Transform lookAt;
+    private Transform lookAt1;
+    [SerializeField] 
+    private Transform lookAt2;
     [SerializeField]
     private Transform target;
     public bool SlerpToTargetFinished { get; private set; } = false;
@@ -15,17 +17,21 @@ public class MasqueradeCamera : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (lookAt != null)
+        if (Buffer.Ending3Activated)
         {
-            transform.LookAt(lookAt);
+            transform.LookAt(lookAt2);
+        }
+        else
+        {
+            transform.LookAt(lookAt1);
         }
     }
 
     private void Update()
     {
-        if (lookAt != null)
+        if (!Buffer.Ending3Activated)
         {
-            transform.LookAt(lookAt);
+            transform.LookAt(lookAt1);
         }
     }
 

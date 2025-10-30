@@ -2,6 +2,7 @@ using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Mayor : Character
 {
@@ -12,7 +13,8 @@ public class Mayor : Character
     private GameObject options;
     [SerializeField]
     private GameObject ExtraMaskOptions;
-    public bool optionsShown = false;
+    private bool optionsShown = false;
+    private bool extraOptionsShown = false;
     private bool HasJumpedToFinalDialog = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -99,6 +101,12 @@ public class Mayor : Character
                 options.SetActive(true);
                 optionsShown = true;
             }
+            if (UIManager.DialogObject.text == dialogs[7].dialogs[1] && !extraOptionsShown)
+            {
+                GameManager.SetWaitingForInput(true);
+                ExtraMaskOptions.SetActive(true);
+                extraOptionsShown = true;
+            }
         }
         else
         {
@@ -113,6 +121,26 @@ public class Mayor : Character
         {
             GameManager.SetWaitingForInput(false);
             optionsShown = false;
+        }
+    }
+
+    public void ManageEnding()
+    {
+        if (options.activeSelf)
+        {
+            options.SetActive(false);
+        }
+        int.TryParse(UIManager.Counter.GetComponent<TextMeshProUGUI>().text, out int counterValue);
+        if (counterValue == 8)
+        {
+            StopAllCoroutines();
+            IsTalking = false;
+            CurrentDialogListIndex = 7;
+            StartTalking = true;
+        }
+        else
+        {
+            SceneDirector.LoadScene("Masquerade");
         }
     }
 }
