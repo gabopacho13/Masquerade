@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 90acbdf227573a344bdb3719c3f17fb6
+  m_OcclusionCullingData: {fileID: 36300000, guid: 7e8d07168c1cf14479209f27f4ff9ea9, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -10191,6 +10191,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10335,7 +10339,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -11014,6 +11018,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16845,7 +16853,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -17507,6 +17515,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26616,6 +26628,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27615,6 +27631,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28363,7 +28383,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -34403,6 +34423,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34517,7 +34541,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -37972,6 +37996,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -42825,7 +42853,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -45244,7 +45272,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -46140,7 +46168,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -49461,6 +49489,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -50605,6 +50637,10 @@ PrefabInstance:
     - target: {fileID: 4540229000190281644, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540229000190281644, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4540229000190281644, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -54183,6 +54219,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59765,6 +59805,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60607,7 +60651,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -63141,6 +63185,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -80269,7 +80317,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -86703,6 +86751,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -96997,7 +97049,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -98129,6 +98181,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -100253,7 +100309,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -109300,6 +109356,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 8505ee4b39bb55c42b4965022a54425e, type: 2}
     - target: {fileID: 7666986768240843510, guid: 9fedecbd1aa68924b816f15cb97e611a, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666986768240843510, guid: 9fedecbd1aa68924b816f15cb97e611a, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
@@ -117457,6 +117517,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -124251,7 +124315,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: 76ceb157c9db0314898cebb9a9304cc7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -124795,6 +124859,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -125550,6 +125618,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -128300,6 +128372,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -129634,6 +129710,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -130533,6 +130613,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 83028eedbc9ff78478e8ea83735e4e30, type: 2}
+    - target: {fileID: 8869962818903947907, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -2209,7 +2209,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: e8245a92e5b6fbc4fbb257902ad7b11d, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -3039,7 +3039,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: e8245a92e5b6fbc4fbb257902ad7b11d, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -4200,7 +4200,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: e8245a92e5b6fbc4fbb257902ad7b11d, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -4441,7 +4441,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: e8245a92e5b6fbc4fbb257902ad7b11d, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -4602,7 +4602,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: e8245a92e5b6fbc4fbb257902ad7b11d, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -4919,7 +4919,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: e8245a92e5b6fbc4fbb257902ad7b11d, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -10143,6 +10143,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4540229000190281644, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4710603824307187762, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -11129,7 +11133,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: e8245a92e5b6fbc4fbb257902ad7b11d, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -12127,7 +12131,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fadead254b8bb1b4e9406290a47642e6, type: 3}
   m_Controller: {fileID: 9100000, guid: e8245a92e5b6fbc4fbb257902ad7b11d, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
