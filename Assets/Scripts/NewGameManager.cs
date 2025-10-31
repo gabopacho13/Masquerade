@@ -22,6 +22,7 @@ public class NewGameManager : MonoBehaviour
     public void ConfirmNewGame()
     {
         PlayerPrefs.DeleteAll();
+        Buffer.ResetBuffer();
         SceneDirector.LoadScene("MainScene");
     }
 

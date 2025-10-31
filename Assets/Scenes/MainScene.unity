@@ -12009,7 +12009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2febb292d8d4c044a2638ff6e517e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pingSound: {fileID: 311761915}
+  pingSound: {fileID: 1639836455}
 --- !u!1001 &148518329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19144,8 +19144,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 134.5
-  field of view: 60
+  far clip plane: 350
+  field of view: 47
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -29199,7 +29199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2febb292d8d4c044a2638ff6e517e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pingSound: {fileID: 311761915}
+  pingSound: {fileID: 1639836455}
 --- !u!4 &526852380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 413218, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
@@ -48433,7 +48433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2febb292d8d4c044a2638ff6e517e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pingSound: {fileID: 311761915}
+  pingSound: {fileID: 1639836455}
 --- !u!1001 &958620408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50898,6 +50898,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2059303320}
+    - targetCorrespondingSourceObject: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1639836454}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       insertIndex: -1
@@ -65577,7 +65580,7 @@ MonoBehaviour:
   jumpForce: 8
   stepIntervalWalking: 0.66
   stepIntervalRunning: 0.4
-  pingSound: {fileID: 311761915}
+  pingSound: {fileID: 1639836455}
 --- !u!1001 &1228251657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82052,7 +82055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2febb292d8d4c044a2638ff6e517e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pingSound: {fileID: 311761915}
+  pingSound: {fileID: 1639836455}
 --- !u!4 &1379401223 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4753028538822310, guid: b58fdf950bf832348af4bfaa2fd9f743, type: 3}
@@ -92936,6 +92939,135 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 413218, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
   m_PrefabInstance: {fileID: 714855360}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1639836453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639836454}
+  - component: {fileID: 1639836455}
+  m_Layer: 0
+  m_Name: PingSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1639836454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639836453}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -685.417, y: 472.9924, z: 204.5754}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1226692474}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1639836455
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639836453}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 66165c905faedac499fe62dd837cd0e7, type: 2}
+  m_audioClip: {fileID: 8300000, guid: ce4f55bf6f3297441958d9c1d57b24c8, type: 3}
+  m_Resource: {fileID: 8300000, guid: ce4f55bf6f3297441958d9c1d57b24c8, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1640908444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1484773449001454, guid: 52885593799113a428a7ed330ad57782, type: 3}
@@ -95146,7 +95278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2febb292d8d4c044a2638ff6e517e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pingSound: {fileID: 311761915}
+  pingSound: {fileID: 1639836455}
 --- !u!1001 &1690888122
 PrefabInstance:
   m_ObjectHideFlags: 0
