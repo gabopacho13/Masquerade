@@ -77,13 +77,19 @@ public class Buffer : MonoBehaviour
 
     public static void ResetBuffer()
     {
-        HasKey = false;
-        BodySeen = false;
-        CellDoorOpened = false;
         for (int i = 0; i < Masks.Count; i++)
         {
             Masks[i].SetCollected(false);
         }
+        HasKey = false;
+        BodySeen = false;
+        CellDoorOpened = false;
+        health = 5;
+        SpawnedFromSave = false;
+        PlayerPosX = 0f;
+        PlayerPosY = 0f;
+        PlayerPosZ = 0f;
+        Ending3Activated = false;
     }
 
     public static void SaveGameSync()
